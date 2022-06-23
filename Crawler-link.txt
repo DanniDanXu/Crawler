@@ -1,0 +1,17 @@
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+req = requests.get('https://www.beeradvocate.com/beer/?view=recent')
+webpage = req.text
+soup = BeautifulSoup(webpage,'html.parser')
+paragraph = soup.findAll('div', class_="user-comment")
+
+for item in paragraph:
+    review = {
+        'review': item.getText()
+    }
+    reviewlist.append(review)
+    
+reviewlist = []
+df = pd.DataFrame(reviewlist)
